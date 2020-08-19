@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Do</title>
+    <script src="https://kit.fontawesome.com/cace2cc9e8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
@@ -45,7 +46,7 @@
            
             <div class="selected-job">
                 <h2>Today</h2>
-                <p>Delete Jobs</p>
+                <button class="btn">Delete Job <i class="fas fa-trash-alt"></i></button>
             </div>
          
             <div class="tasks-container">
@@ -54,21 +55,21 @@
                         <input type="checkbox" name="" id="task-1">
                         <label for="task-1">Make To Do list --</label>
                         <p>due date</p>
-                        <button class="delete class" aria-label="delete new task">delete</button>
+                        <button class=" btn delete class" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
                     </div>
 
                     <div class="task">
                         <input type="checkbox" name="" id="task-1">
-                        <label for="task-1">Do Laundry and a load of other stuff</label>
+                        <label for="task-1">Do Laundry really lots of stuff to see and a load of other stuff Do Laundry really lots of stuff to see and a load of other stuff Do Laundry really lots of stuff to see and a load of other stuff Do Laundry really lots of stuff to see and a load of other stuff</label>
                         <p>due date</p>
-                        <button class="delete class" aria-label="delete new task">delete</button>
+                        <button class="btn delete class" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
                     </div>
 
                     <div class="task">
                         <input type="checkbox" name="" id="task-1">
                         <label for="task-1">Learn to drive</label>
                         <p>due date</p>
-                        <button class="delete class" aria-label="delete new task">delete</button>
+                        <button class="btn delete class" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
                     </div>
                     
                 </div>
@@ -76,14 +77,14 @@
                 <div class="new-task-form">
                     <form action="">
                         <input 
-                        class="new task" 
+                        class="new task-create" 
                         type="text" 
                         name="" 
                         id="" 
                         placeholder="add a task"
                         aria-label="new task name"
                         />
-                        <button class="btn task" aria-label="create new task">
+                        <button class="btn new-task" aria-label="create new task">
                             +
                         </button>
                     </form>
@@ -94,6 +95,9 @@
 
         <!-- overall container div ends below -->
     </div>
+
+
+
     <script src="bundle.js"></script>
   
 </body>

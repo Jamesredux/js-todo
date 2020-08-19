@@ -47,12 +47,13 @@ body {
 }
 
 .nav-container h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 .job-cats {
     line-height: 1.5;
     font-size: 1.5rem;
+    margin-right: 50px;
 }
 
 .job-name {
@@ -66,7 +67,8 @@ body {
 
 .active-job {
     font-weight: 700;
-    border: 1px solid var(--darkgreen)
+    border-bottom: 2px solid var(--lightgreen);
+    
 }
 
 .list-container {
@@ -74,13 +76,12 @@ body {
     border: 7px solid var(--lightgreen);
     border-radius: 4px;
     margin-top: 100px;
-    /* background-color: var(--lightgreen); */
-    /* margin: 100px 40px 0; */
 }
 
 .tasks-container {
     display: inline-flex;
     flex-direction: column;
+    
 }
 
 .task {
@@ -96,6 +97,8 @@ body {
    
 }
 
+
+
 .task:hover {
     border-bottom-width: 2px;
    
@@ -106,10 +109,56 @@ body {
     text-decoration: line-through;
 }
 
+.task input {
+    
+}
 
+.task label {
+    flex: 3 0 auto;
+    max-width: 450px;
+    padding-left: 10px
+}
+
+.task p {
+    padding: 0px 15px;
+    flex: 2 0 auto;
+    color: blue;
+    text-align: right;
+}
+
+
+.task i {
+    font-size: 1.1rem;
+    color: var(--lightgreen);
+    padding-bottom: 15px;
+    
+}
 
 form {
     display: flex;
+    justify-content: start;
+    margin-top: 20px;
+}
+
+form input {
+    margin-right: 10px;
+}
+
+.new-task-form {
+    margin-left: 40px;
+    
+}
+
+.new-task-form input {
+    min-width: 400px;
+    
+}
+
+
+
+.task-create  {
+    
+
 }
 
 /* form input fields  */
@@ -140,11 +189,13 @@ form {
     font-size: 2rem;
     opacity: 0.7;
     transition: opacity 250ms ease-in;
+
 }
 
 .btn:hover {
     opacity: 1;
 }
+
 
 .selected-job {
     display: flex;
@@ -163,9 +214,12 @@ form {
     padding: 20px;
 }
 
-.selected-job p {
+.selected-job .btn {
     margin-right: 20px;
+    font-size: 1rem;
 }
+
+
 
 @media all and ( max-width: 980px)  {
     .container {
