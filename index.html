@@ -16,15 +16,15 @@
                 <h1>Jobs To Do</h1>
             </div>
             <div class="job-cats">
-                <ul>
-                    <li class="job-name active-job">Today</li>
+                <ul data-jobs>
+                    <!-- <li class="job-name active-job">Today</li>
                     <li class="job-name">This Week</li>
                     <li class="job-name">Goals</li>
-                    <li class="job-name">Study</li>
+                    <li class="job-name">Study</li> -->
                 </ul>
             </div>
             <div class="new-job-form">
-                <form action="">
+                <form action="" data-new-job-form>
                     <input 
                     class="new job" 
                     type="text" 
@@ -32,6 +32,7 @@
                     id="" 
                     placeholder="add a job"
                     aria-label="new job name"
+                    data-new-job-input
                     />
                     <button class="btn job" aria-label="create new list">
                         +
