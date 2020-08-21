@@ -46,45 +46,36 @@
         <div class="list-container">
            
             <div class="selected-job">
-                <h2>Today</h2>
-                <button class="btn">Delete Job <i class="fas fa-trash-alt"></i></button>
+                <h2 id="current-job"></h2>
+                <button class="btn delete-job">Delete Job <i class="fas fa-trash-alt"></i></button>
             </div>
          
             <div class="tasks-container">
                 <div class="task-list">
-                    <div class="task">
+                    <!-- <div class="task">
                         <input type="checkbox" name="" id="task-1">
                         <label for="task-1">Make To Do list --</label>
                         <p>due date</p>
-                        <button class=" btn delete class" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
-                    </div>
+                        <button class=" btn delete-task" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
+                    </div> -->
 
-                    <div class="task">
-                        <input type="checkbox" name="" id="task-1">
-                        <label for="task-1">Do Laundry really lots of stuff to see and a load of other stuff Do Laundry really lots of stuff to see and a load of other stuff Do Laundry really lots of stuff to see and a load of other stuff Do Laundry really lots of stuff to see and a load of other stuff</label>
-                        <p>due date</p>
-                        <button class="btn delete class" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
-                    </div>
 
-                    <div class="task">
-                        <input type="checkbox" name="" id="task-1">
-                        <label for="task-1">Learn to drive</label>
-                        <p>due date</p>
-                        <button class="btn delete class" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
-                    </div>
                     
                 </div>
 
-                <div class="new-task-form">
-                    <form action="">
+                <div class="new-task-form" >
+                    <form action="" data-new-task-form>
+                        <label for="new-task">Add a New Task</label>
                         <input 
                         class="new task-create" 
                         type="text" 
                         name="" 
-                        id="" 
+                        id="new-task" 
                         placeholder="add a task"
                         aria-label="new task name"
                         />
+                        <label for="due-date">Set a Due Date</label>
+                        <input type="date" name="" id="due-date">
                         <button class="btn new-task" aria-label="create new task">
                             +
                         </button>
