@@ -146,15 +146,18 @@ form input {
 
 .new-task-form {
     margin-left: 40px;
+    flex-wrap: wrap;
     
 }
 
 .new-task-form input {
-    min-width: 400px;
+    min-width: 300px;
     
 }
 
-
+input[type="date"] {
+    width: 80px;
+}
 
 .task-create  {
     
@@ -219,6 +222,10 @@ form input {
     font-size: 1rem;
 }
 
+
+#current-job {
+    
+}
 
 
 @media all and ( max-width: 980px)  {
