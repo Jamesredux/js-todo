@@ -15,17 +15,19 @@ const datePicker = document.querySelector('.date-picker');
 const dateInput = document.querySelector('#due-date')
 const taskStringInput = document.querySelector('.task-create');
 const deleteJobButton = document.querySelector('.delete-job');
+
 const currentJobTitle = document.querySelector('#current-job')
 const tasksContainer = document.querySelector('.task-list')
-// const taskCheckbox = document.querySelector('.task');
+
 
 
 jobListContainer.addEventListener('click', changeActiveJob);
 newJobForm.addEventListener('submit', addNewJob);
 newTaskForm.addEventListener('submit', addNewTask);
 deleteJobButton.addEventListener('click', removeActiveJob);
-taskTimeFrame.addEventListener('change', showDatePicker)
-// taskCheckbox.addEventListener('change', toggleTaskDone);
+
+taskTimeFrame.addEventListener('change', showDatePicker);
+
 
 const jobCreator = (title, id) => {
     const taskList = [];
@@ -156,8 +158,22 @@ function removeActiveJob(e) {
     };    
 };
 
-function toggleTaskDone() {
-    console.log("toggle")
+function toggleTaskDone(e) {
+    
+    const currentJob = jobList.find(job => job.id === activeJobId);
+    const currentTask = currentJob.taskList.find(task => task.id = e.target.id);
+    
+    currentTask.complete = !currentTask.complete
+
+    saveAndRender()
+};
+
+function removeTask() {
+    const currentJob = jobList.find(job => job.id === activeJobId);
+    
+    currentJob.taskList = currentJob.taskList.filter(task => task.id != this.dataset.taskid.toString());
+    saveAndRender()
+   
 }
 
 function saveAndRender() {
@@ -173,18 +189,23 @@ function save() {
 function render() {
   
     clearElement(jobListContainer);
+    clearElement(tasksContainer)
     if(jobList.length === 0) {
         seedJobs()
     }
     renderJobList()
     if(activeJobId === null) {
-       currentJobTitle.innerHTML = ""
+        const currentJob = jobList[0];
+        activeJobId = currentJob.id
+        currentJobTitle.innerHTML = currentJob.title;
+        renderTaskList(currentJob);
     } else {
+
        const  currentJob = jobList.find(job => job.id === activeJobId);
        currentJobTitle.innerHTML = currentJob.title;
-       clearElement(tasksContainer)
-       renderTaskList(currentJob)
+       renderTaskList(currentJob);
     };
+
 };
 
 function renderJobList() {
@@ -201,6 +222,7 @@ function renderJobList() {
 };
 
 function renderTaskList(currentJob) {
+    if(currentJob.taskList.length === 0) return;
     currentJob.taskList.forEach(task => {
         const newTask = document.createElement('div');
         newTask.classList.add("task");
@@ -209,15 +231,30 @@ function renderTaskList(currentJob) {
         <input type="checkbox" name="" id="${task.id}">
         <label for="${task.id}">${task.taskString}</label>
         <p>${task.dueDate}</p>
-        <button class=" btn delete-task" aria-label="delete new task"><i class="fas fa-trash-alt"></i></button>
+        <button class=" btn delete-task" aria-label="delete new task" data-taskid="${task.id}"><i class="fas fa-trash-alt"></i></button>
         
         `
+        
+        if (task.complete === true) {
+            console.log("check the box")
+    
+            
+        }
         tasksContainer.appendChild(newTask)
     });
-   
 
-    // console.log(currentJob.taskList)
+    addListenersToTasks()
+    
+    
 };
+
+function addListenersToTasks() {
+    const taskCheckboxs = document.querySelectorAll('[type="checkbox"]');
+    const deletetaskButtons = document.querySelectorAll('.delete-task');
+    deletetaskButtons.forEach(button => button.addEventListener('click', removeTask));
+    taskCheckboxs.forEach(box => box.addEventListener('change', toggleTaskDone));
+
+}
 
 function clearElement(element) {
     while(element.firstChild) {
@@ -225,5 +262,5 @@ function clearElement(element) {
     };
 };
 
-// seedJobs();
+
 render();
