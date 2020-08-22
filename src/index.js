@@ -9,6 +9,9 @@ const jobListContainer = document.querySelector('[data-jobs]');
 const newJobForm = document.querySelector('[data-new-job-form]');
 const newJobInput = document.querySelector('[data-new-job-input]');
 const newTaskForm = document.querySelector('[data-new-task-form]');
+const taskTimeFrame = document.querySelector('[data-task-time-choice]')
+const dateDropdown = document.querySelector('.date-dropdown');
+const datePicker = document.querySelector('.date-picker');
 const dateInput = document.querySelector('#due-date')
 const taskStringInput = document.querySelector('.task-create');
 const deleteJobButton = document.querySelector('.delete-job');
@@ -21,6 +24,7 @@ jobListContainer.addEventListener('click', changeActiveJob);
 newJobForm.addEventListener('submit', addNewJob);
 newTaskForm.addEventListener('submit', addNewTask);
 deleteJobButton.addEventListener('click', removeActiveJob);
+taskTimeFrame.addEventListener('change', showDatePicker)
 // taskCheckbox.addEventListener('change', toggleTaskDone);
 
 const jobCreator = (title, id) => {
@@ -107,6 +111,18 @@ function addNewJob(e) {
     this.reset()
 };
 
+function showDatePicker(e) {
+    e.preventDefault;
+    if (taskTimeFrame.value === "setdate") {
+        console.log("show picker")
+        datePicker.style.display = "inline"
+        datePicker.classList.add("showme")
+    } else {
+        datePicker.style.display = "none"
+    }
+
+}
+
 function addNewTask(e) {
     e.preventDefault();
     const taskString = taskStringInput.value;
@@ -114,6 +130,7 @@ function addNewTask(e) {
     const  currentJob = jobList.find(job => job.id === activeJobId);
     const taskId = Date.now().toString();
     const dueDate = dateInput.value;
+    console.log(taskTimeFrame.value)
     const newTask = taskCreator(taskId, taskString, dueDate);
     currentJob.taskList.push(newTask);
     

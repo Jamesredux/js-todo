@@ -144,20 +144,65 @@ form input {
     margin-right: 10px;
 }
 
-.new-task-form {
+.new-task-form-container {
     margin-left: 40px;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
+    /* width: 800px; */
     
 }
 
-.new-task-form input {
+.new-task-form {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "task   task task date  date button"
+       
+    ; */
+}
+
+.task-string {
+    flex-grow: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-string > input {
+    min-width: 400px;
+}
+
+.date-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.date-picker {
+    display: none;
+    padding-top: 10px;
+}
+
+
+
+.new-task-button {
+    grid-area: button;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+/* .new-task-form input {
     min-width: 300px;
     
-}
+} */
 
-input[type="date"] {
+/* input[type="date"] {
     width: 80px;
-}
+} */
 
 .task-create  {
     
