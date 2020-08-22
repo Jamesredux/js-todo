@@ -63,22 +63,46 @@
                     
                 </div>
 
-                <div class="new-task-form" >
-                    <form action="" data-new-task-form>
-                        <label for="new-task">Add a New Task</label>
-                        <input 
-                        class="new task-create" 
-                        type="text" 
-                        name="" 
-                        id="new-task" 
-                        placeholder="add a task"
-                        aria-label="new task name"
-                        />
-                        <label for="due-date">Set a Due Date</label>
-                        <input type="date" name="" id="due-date">
-                        <button class="btn new-task" aria-label="create new task">
-                            +
-                        </button>
+                <div class="new-task-form-container" >
+                    <form action="" class="new-task-form" data-new-task-form>
+
+                        <div class="task-string">
+                            <!-- <label for="new-task">Add a New Task</label> -->
+                            <input 
+                            class="new task-create" 
+                            type="text" 
+                            name="" 
+                            id="new-task" 
+                            placeholder="add a task"
+                            aria-label="new task name"
+                            />
+                        </div>    
+
+                        <div class="date-input">
+
+                            <div class="date-dropdown">
+                                <label id="time-choice" for="time-choice">Select Time :</label>
+
+                                <select data-task-time-choice name="time-choice" id="time-choice">
+                                  <option value="whenever">Whenever</option>
+                                  <option value="asap">ASAP</option>
+                                  <option value="thisyear">This Year</option>
+                                  <option value="infuture">In The Future</option>
+                                  <option value="setdate">Set A Date</option>
+                                </select> 
+                            </div>    
+
+                            <div class="date-picker">
+                                <!-- <label for="due-date">Select Date</label> -->
+                                <input type="date" name="" id="due-date">
+                            </div>
+                        </div>
+                        
+                        <div class="new-task-button">
+                            <button class="btn new-task" aria-label="create new task">
+                                +
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
