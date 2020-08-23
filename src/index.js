@@ -1,6 +1,6 @@
 import './reset.css';
 import './style.css';
-import { isToday, isThisWeek } from 'date-fns'
+import { isToday, isThisWeek, parseISO } from 'date-fns'
 
 const LOCAL_STORAGE_JOBS_KEY = 'jobs.list';
 const LOCAL_STORAGE_ACTIVE_JOB_ID_KEY = 'jobs.activeId'
@@ -62,31 +62,31 @@ function seedTasks() {
     const welcomeJob = jobList.find(job => job.title === "Welcome");
     const seedTasks = [
         {
-            id: 1, 
+            id: "11111111", 
             taskString: "Welcome to JamesRedux To Do App",
             dueDate: null,
             complete: false
         },
         {
-            id: 2, 
+            id: "22222222", 
             taskString: "You can create tasks and goals and set due dates",
             dueDate: null,
             complete: false
         },
         {
-            id: 3, 
+            id: "33333333", 
             taskString: "Once done you and mark them as completed or delete them",
             dueDate: null,
             complete: false
         },
         {
-            id: 4, 
+            id: "44444444", 
             taskString: "You can create new jobs on the left and new tasks below",
             dueDate: null,
             complete: false
         },
         {
-            id: 5, 
+            id: "55555555", 
             taskString: "Each task belongs to a job!",
             dueDate: null,
             complete: false
@@ -116,7 +116,6 @@ function addNewJob(e) {
 function showDatePicker(e) {
     e.preventDefault;
     if (taskTimeFrame.value === "setdate") {
-        console.log("show picker")
         datePicker.style.display = "inline"
         datePicker.classList.add("showme")
     } else {
@@ -144,6 +143,7 @@ function addNewTask(e) {
 function changeActiveJob(e) {
     if (e.target.tagName.toLowerCase() === 'li') {
         activeJobId = e.target.dataset.jobId;
+        console.log(activeJobId)
         saveAndRender();
     }
 };
@@ -159,22 +159,36 @@ function removeActiveJob(e) {
 };
 
 function toggleTaskDone(e) {
-    console.log(e.target.id)
-    const currentJob = jobList.find(job => job.id === activeJobId);
-    console.log(currentJob.taskList)
+    const thisJobId = findJobFromTask(e.target.id).toString();
+    const currentJob = jobList.find(job => job.id === thisJobId);
+
     const currentTask = currentJob.taskList.find(task => task.id == e.target.id);
-    console.log(currentTask);
     currentTask.complete = !currentTask.complete
 
     saveAndRender()
 };
 
 function removeTask() {
-    const currentJob = jobList.find(job => job.id === activeJobId);
-    
+    const taskId = this.dataset.taskid
+    const thisJobId = findJobFromTask(this.dataset.taskid).toString();
+    const currentJob = jobList.find(job => job.id === thisJobId);
+
     currentJob.taskList = currentJob.taskList.filter(task => task.id != this.dataset.taskid.toString());
     saveAndRender()
    
+}
+
+function findJobFromTask(taskid) {
+    let jobId = "";
+    taskid = taskid.toString();
+    jobList.forEach(job => {
+        const matchingJob = job.taskList.filter(task => task.id === taskid)
+        if (matchingJob.length > 0) {
+            jobId = job.id;
+        };
+    })
+    console.log(jobId)
+    return jobId;
 }
 
 function saveAndRender() {
@@ -223,23 +237,38 @@ function renderJobList() {
 };
 
 function renderTaskList(currentJob) {
-    if(currentJob.taskList.length === 0) return;
-    currentJob.taskList.forEach(task => {
+    // if(currentJob.taskList.length === 0) return;
+    
+    switch(currentJob.title) {
+        case "Today":
+            loadTodayJobs();
+            break;
+        case "This Week":
+            loadWeekJobs();
+            break;
+        default:    
+            createTaskList(currentJob.taskList);
+        };    
+  
+};
+
+function createTaskList(tasks) {
+
+    tasks.forEach(task => {
         const newTask = document.createElement('div');
         newTask.classList.add("task");
         // newTask.innerHTML = `
-
+    
         // <input type="checkbox" name="" id="${task.id}">
         // <label for="${task.id}">${task.taskString}</label>
         // <p>${task.dueDate}</p>
-        // <button class=" btn delete-task" aria-label="delete new task" data-taskid="${task.id}"><i class="fas fa-trash-alt"></i></button>
-        
+        // <button class=" btn delete-task" aria-label="delete new task" data-taskid="${task.id}"><i class="fas fa-trash-alt"></i></button
         // `
         const newCheckbox = document.createElement('input');
         const newLabel = document.createElement('label');
         const newDueDate = document.createElement('p');
         const newButton = document.createElement('button');
-
+    
         newCheckbox.setAttribute('type', 'checkbox');
         newCheckbox.setAttribute('id', task.id);
         if (task.complete) {
@@ -247,26 +276,58 @@ function renderTaskList(currentJob) {
         }
         newLabel.setAttribute('for', task.id);
         newLabel.textContent = task.taskString;
-
+    
         newDueDate.textContent = task.dueDate;
-
+    
         newButton.setAttribute('class', 'btn delete-task');
         newButton.setAttribute('aria-label', 'delete new task');
         newButton.setAttribute('data-taskid', task.id);
         newButton.innerHTML = `<i class="fas fa-trash-alt"></i>`
+        
+           newTask.appendChild(newCheckbox);
+           newTask.appendChild(newLabel);
+           newTask.appendChild(newDueDate);
+           newTask.appendChild(newButton);
+           tasksContainer.appendChild(newTask)
+        
+      });
+      addListenersToTasks()
+}
 
-        newTask.appendChild(newCheckbox);
-        newTask.appendChild(newLabel);
-        newTask.appendChild(newDueDate);
-        newTask.appendChild(newButton);
-        tasksContainer.appendChild(newTask)
-   
+function loadTodayJobs() {
+  
+    const todaysJobs = [];
+    jobList.forEach(job => {
+        job.taskList.forEach(task => {
+           if (task.dueDate === null || task.dueDate === "") return;
+
+           if (isToday(parseISO(task.dueDate))) {
+                todaysJobs.push(task)
+            };
+            
+        });
     });
-
-    addListenersToTasks()
-    
-    
+    createTaskList(todaysJobs)
 };
+
+
+function loadWeekJobs() {
+      
+    const thisWeeksJobs = [];
+    jobList.forEach(job => {
+        job.taskList.forEach(task => {
+           if (task.dueDate === null || task.dueDate === "") return;
+
+           if (isThisWeek(parseISO(task.dueDate))) {
+                thisWeeksJobs.push(task)
+            };
+            
+        });
+    });
+   
+    createTaskList(thisWeeksJobs)
+
+}
 
 function addListenersToTasks() {
     const taskCheckboxs = document.querySelectorAll('[type="checkbox"]');
@@ -284,3 +345,5 @@ function clearElement(element) {
 
 
 render();
+
+// remove add task and delete job options from weekly and today jobs
