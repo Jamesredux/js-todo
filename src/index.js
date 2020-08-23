@@ -159,10 +159,11 @@ function removeActiveJob(e) {
 };
 
 function toggleTaskDone(e) {
-    
+    console.log(e.target.id)
     const currentJob = jobList.find(job => job.id === activeJobId);
-    const currentTask = currentJob.taskList.find(task => task.id = e.target.id);
-    
+    console.log(currentJob.taskList)
+    const currentTask = currentJob.taskList.find(task => task.id == e.target.id);
+    console.log(currentTask);
     currentTask.complete = !currentTask.complete
 
     saveAndRender()
@@ -226,21 +227,40 @@ function renderTaskList(currentJob) {
     currentJob.taskList.forEach(task => {
         const newTask = document.createElement('div');
         newTask.classList.add("task");
-        newTask.innerHTML = `
+        // newTask.innerHTML = `
 
-        <input type="checkbox" name="" id="${task.id}">
-        <label for="${task.id}">${task.taskString}</label>
-        <p>${task.dueDate}</p>
-        <button class=" btn delete-task" aria-label="delete new task" data-taskid="${task.id}"><i class="fas fa-trash-alt"></i></button>
+        // <input type="checkbox" name="" id="${task.id}">
+        // <label for="${task.id}">${task.taskString}</label>
+        // <p>${task.dueDate}</p>
+        // <button class=" btn delete-task" aria-label="delete new task" data-taskid="${task.id}"><i class="fas fa-trash-alt"></i></button>
         
-        `
-        
-        if (task.complete === true) {
-            console.log("check the box")
-    
-            
+        // `
+        const newCheckbox = document.createElement('input');
+        const newLabel = document.createElement('label');
+        const newDueDate = document.createElement('p');
+        const newButton = document.createElement('button');
+
+        newCheckbox.setAttribute('type', 'checkbox');
+        newCheckbox.setAttribute('id', task.id);
+        if (task.complete) {
+            newCheckbox.checked = true;
         }
+        newLabel.setAttribute('for', task.id);
+        newLabel.textContent = task.taskString;
+
+        newDueDate.textContent = task.dueDate;
+
+        newButton.setAttribute('class', 'btn delete-task');
+        newButton.setAttribute('aria-label', 'delete new task');
+        newButton.setAttribute('data-taskid', task.id);
+        newButton.innerHTML = `<i class="fas fa-trash-alt"></i>`
+
+        newTask.appendChild(newCheckbox);
+        newTask.appendChild(newLabel);
+        newTask.appendChild(newDueDate);
+        newTask.appendChild(newButton);
         tasksContainer.appendChild(newTask)
+   
     });
 
     addListenersToTasks()
