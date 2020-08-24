@@ -25,7 +25,6 @@ jobListContainer.addEventListener('click', changeActiveJob);
 newJobForm.addEventListener('submit', addNewJob);
 newTaskForm.addEventListener('submit', addNewTask);
 deleteJobButton.addEventListener('click', removeActiveJob);
-
 taskTimeFrame.addEventListener('change', showDatePicker);
 
 
@@ -43,8 +42,6 @@ const taskCreator = (id, taskString, dueDate) => {
 
 let jobList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_JOBS_KEY)) || [];
 let activeJobId = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ACTIVE_JOB_ID_KEY));
-
-
 
 
 function seedJobs() {
@@ -96,7 +93,7 @@ function seedTasks() {
 
     seedTasks.forEach(task => {
         welcomeJob.taskList.push(task)
-    })
+    });
   
 };
 
@@ -120,9 +117,8 @@ function showDatePicker(e) {
         datePicker.classList.add("showme")
     } else {
         datePicker.style.display = "none"
-    }
-
-}
+    };
+};
 
 function addNewTask(e) {
     e.preventDefault();
@@ -131,7 +127,6 @@ function addNewTask(e) {
     const  currentJob = jobList.find(job => job.id === activeJobId);
     const taskId = Date.now().toString();
     const dueDate = dateInput.value;
-    console.log(taskTimeFrame.value)
     const newTask = taskCreator(taskId, taskString, dueDate);
     currentJob.taskList.push(newTask);
     
@@ -145,7 +140,7 @@ function changeActiveJob(e) {
         activeJobId = e.target.dataset.jobId;
         console.log(activeJobId)
         saveAndRender();
-    }
+    };
 };
 
 function removeActiveJob(e) {
@@ -161,8 +156,8 @@ function removeActiveJob(e) {
 function toggleTaskDone(e) {
     const thisJobId = findJobFromTask(e.target.id).toString();
     const currentJob = jobList.find(job => job.id === thisJobId);
-
     const currentTask = currentJob.taskList.find(task => task.id == e.target.id);
+
     currentTask.complete = !currentTask.complete
 
     saveAndRender()
@@ -186,10 +181,10 @@ function findJobFromTask(taskid) {
         if (matchingJob.length > 0) {
             jobId = job.id;
         };
-    })
-    console.log(jobId)
+    });
+
     return jobId;
-}
+};
 
 function saveAndRender() {
     save()
@@ -212,14 +207,17 @@ function render() {
     if(activeJobId === null) {
         const currentJob = jobList[0];
         activeJobId = currentJob.id
-        currentJobTitle.innerHTML = currentJob.title;
-        renderTaskList(currentJob);
+        // currentJobTitle.innerHTML = currentJob.title;
+        // renderTaskList(currentJob);
     } else {
-
-       const  currentJob = jobList.find(job => job.id === activeJobId);
-       currentJobTitle.innerHTML = currentJob.title;
-       renderTaskList(currentJob);
+        //    currentJobTitle.innerHTML = currentJob.title;
+        //    renderTaskList(currentJob);
     };
+    
+    const  currentJob = jobList.find(job => job.id === activeJobId);
+    currentJobTitle.innerHTML = currentJob.title;
+    renderTaskList(currentJob);
+
 
 };
 
@@ -237,23 +235,24 @@ function renderJobList() {
 };
 
 function renderTaskList(currentJob) {
-    // if(currentJob.taskList.length === 0) return;
     
     switch(currentJob.title) {
         case "Today":
-            loadTodayJobs();
-            break;
         case "This Week":
-            loadWeekJobs();
+            deleteJobButton.style.display = 'none';  
+            newTaskForm.style.display = 'none';
+            loadCurrentJobs(currentJob.title);
             break;
         default:    
+            deleteJobButton.style.display = '';
+            newTaskForm.style.display = '';
             createTaskList(currentJob.taskList);
         };    
   
 };
 
 function createTaskList(tasks) {
-
+    
     tasks.forEach(task => {
         const newTask = document.createElement('div');
         newTask.classList.add("task");
@@ -294,40 +293,30 @@ function createTaskList(tasks) {
       addListenersToTasks()
 }
 
-function loadTodayJobs() {
-  
-    const todaysJobs = [];
+function loadCurrentJobs(jobtitle) {
+    // this function only called for today and this week jobs
+    const filteredTasks = [];
     jobList.forEach(job => {
         job.taskList.forEach(task => {
            if (task.dueDate === null || task.dueDate === "") return;
 
-           if (isToday(parseISO(task.dueDate))) {
-                todaysJobs.push(task)
+           if (jobtitle === "Today") {
+                if (isToday(parseISO(task.dueDate))) {
+                filteredTasks.push(task)
+                }
+            } else {
+                if (isThisWeek(parseISO(task.dueDate))) {
+                    filteredTasks.push(task)
+                    }
             };
             
         });
     });
-    createTaskList(todaysJobs)
+    createTaskList(filteredTasks)
 };
 
 
-function loadWeekJobs() {
-      
-    const thisWeeksJobs = [];
-    jobList.forEach(job => {
-        job.taskList.forEach(task => {
-           if (task.dueDate === null || task.dueDate === "") return;
 
-           if (isThisWeek(parseISO(task.dueDate))) {
-                thisWeeksJobs.push(task)
-            };
-            
-        });
-    });
-   
-    createTaskList(thisWeeksJobs)
-
-}
 
 function addListenersToTasks() {
     const taskCheckboxs = document.querySelectorAll('[type="checkbox"]');
@@ -335,7 +324,7 @@ function addListenersToTasks() {
     deletetaskButtons.forEach(button => button.addEventListener('click', removeTask));
     taskCheckboxs.forEach(box => box.addEventListener('change', toggleTaskDone));
 
-}
+};
 
 function clearElement(element) {
     while(element.firstChild) {
@@ -346,4 +335,3 @@ function clearElement(element) {
 
 render();
 
-// remove add task and delete job options from weekly and today jobs
