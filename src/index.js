@@ -114,7 +114,7 @@ function showDatePicker(e) {
     e.preventDefault;
     if (taskTimeFrame.value === "setdate") {
         datePicker.style.display = "inline"
-        datePicker.classList.add("showme")
+       
     } else {
         datePicker.style.display = "none"
     };
@@ -122,11 +122,14 @@ function showDatePicker(e) {
 
 function addNewTask(e) {
     e.preventDefault();
+    let dueDate = taskTimeFrame.value
     const taskString = taskStringInput.value;
     if (taskString === null || taskString === "") return;
     const  currentJob = jobList.find(job => job.id === activeJobId);
     const taskId = Date.now().toString();
-    const dueDate = dateInput.value;
+    if (taskTimeFrame.value === "setdate") {
+     dueDate = dateInput.value;
+    } 
     const newTask = taskCreator(taskId, taskString, dueDate);
     currentJob.taskList.push(newTask);
     
@@ -138,7 +141,6 @@ function addNewTask(e) {
 function changeActiveJob(e) {
     if (e.target.tagName.toLowerCase() === 'li') {
         activeJobId = e.target.dataset.jobId;
-        console.log(activeJobId)
         saveAndRender();
     };
 };
