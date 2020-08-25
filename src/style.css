@@ -5,6 +5,7 @@
     --lightgreen: #419d78;
     --bkggreen: #c5e7da;
     --sunglow: #fdca40;
+    --gray4:  #2b2a2a;
     --gray5: #8f8f8f;
     --gray6: #c2c2c2;
     --gray7: #E0E0E0;
@@ -51,10 +52,22 @@ body {
     font-size: 2.5rem;
 }
 
+.jobsheader {
+    margin-right: 20px;
+    color: var(--gray4);
+    padding-bottom: 10px;
+    font-size: 2rem;
+    border-bottom: 2px solid var(--gray4);
+}
+
 .job-cats {
     line-height: 1.5;
     font-size: 1.5rem;
-    margin-right: 50px;
+    margin-right: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .job-name {
@@ -68,8 +81,22 @@ body {
 
 .active-job {
     font-weight: 700;
-    border-bottom: 2px solid var(--lightgreen);
+    color: var(--gray4);
+ 
     
+}
+
+
+.add-job {
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid var(--gray4);
+    color: inherit;
+    transition: border-bottom 150ms ease-in;
+}
+
+.add-job:focus {
+    border-bottom-width: 4px;
 }
 
 .list-container {
@@ -129,7 +156,7 @@ body {
 .task p {
     padding: 0px 15px;
     flex: 2 0 auto;
-    color: blue;
+    color: var(--lightgreen);
     text-align: right;
 }
 
@@ -260,7 +287,7 @@ form input {
     align-items: center;
     height: 80px;
     background-color: var(--bkggreen);
-    color: var(--darkgreen);
+    color: var(--gray4);
     margin-bottom: 20px;
 }
 
