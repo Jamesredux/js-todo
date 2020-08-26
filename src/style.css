@@ -18,6 +18,40 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+*:focus {
+    outline: none;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    
+}
+
+::-webkit-scrollbar-track {
+    background: inherit;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--gray5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--lightgreen);
+}
+
+/* ::-webkit-scrollbar-button {
+    background-color: transparent;
+} */
+/* ::-webkit-scrollbar-track-piece {
+    background-color: red;
+}
+
+::-webkit-scrollbar-track {
+    background-color: red;
+} */
+
+/* 
+::-webkit-scrollbar-corner */
+
 
 .container {
     display: grid;
@@ -86,6 +120,8 @@ body {
 .add-job:focus {
     border-bottom-width: 4px;
 }
+
+
 
 .list-container {
     grid-column-start: 3;
@@ -240,14 +276,14 @@ form {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 60px;
     background-color: var(--bkggreen);
     color: var(--gray4);
     margin-bottom: 20px;
 }
 
 .selected-job h2 {
-    font-size: 3rem;
+    font-size: 1.5rem;
     margin-right: 1em;
     font-weight: 700;
     padding: 20px;
@@ -272,6 +308,7 @@ form {
         margin-top: 0;
         grid-column-start: 1;
         flex-direction: row;
+        justify-content: space-between;
     }
 
     .list-container {
@@ -282,4 +319,25 @@ form {
 
     }
 
+    .task-list {
+        max-height: 1200px;
+    }
+
+    .jobsheader {
+        display: none;
+    }
+
+    .title {
+        flex-grow: 3;
+    }
+
+    .job-cats {
+        min-width: 200px;
+        flex-grow: 2;
+    }
+
+    .new-job-form {
+        flex-grow: 1;
+        
+    }
 }

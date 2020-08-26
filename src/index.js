@@ -66,25 +66,25 @@ function seedTasks() {
         },
         {
             id: "22222222", 
-            taskString: "You can create tasks and goals and set due dates",
+            taskString: "First Create a new Job on the left.",
             dueDate: null,
             complete: false
         },
         {
             id: "33333333", 
-            taskString: "Once done you and mark them as completed or delete them",
+            taskString: "Then add tasks to it in this task section",
             dueDate: null,
             complete: false
         },
         {
             id: "44444444", 
-            taskString: "You can create new jobs on the left and new tasks below",
+            taskString: "Mark them as done and delete if desired",
             dueDate: null,
-            complete: false
+            complete: true
         },
         {
             id: "55555555", 
-            taskString: "Each task belongs to a job!",
+            taskString: "You can also filter by tasks due today or this week!",
             dueDate: null,
             complete: false
         }
@@ -234,6 +234,7 @@ function renderJobList() {
         newJob.innerText = job.title;
         jobListContainer.appendChild(newJob);
     })
+ 
 };
 
 function renderTaskList(currentJob) {
