@@ -2,7 +2,6 @@
     --backgroundblue: #F2F4F8;
     --nicepink: #ff6b6b;
     --palepink: #ffd6d6;
-
     --darkgreen: #172121;
     --lightgreen: #419d78;
     --bkggreen: #c5e7da;
@@ -22,9 +21,12 @@ body {
     outline: none;
 }
 
+
+
+/* scroll bar styling will not work on some browsers eg firefox */
+
 ::-webkit-scrollbar {
     width: 10px;
-    
 }
 
 ::-webkit-scrollbar-track {
@@ -38,27 +40,14 @@ body {
     background-color: var(--lightgreen);
 }
 
-/* ::-webkit-scrollbar-button {
-    background-color: transparent;
-} */
-/* ::-webkit-scrollbar-track-piece {
-    background-color: red;
-}
-
-::-webkit-scrollbar-track {
-    background-color: red;
-} */
-
-/* 
-::-webkit-scrollbar-corner */
-
-
 .container {
     display: grid;
     gap: 30px;
     grid-template-columns: 1fr minmax(200px, 300px) minmax(600px, 800px) 1fr;
-    min-height: 95vh;
+    min-height: 550px;
 }
+
+/* left nav box and title */
 
 .nav-container {
     grid-column-start: 2;
@@ -85,7 +74,7 @@ body {
     color: var(--gray4);
     padding-bottom: 10px;
     font-size: 2rem;
-    border-bottom: 2px solid var(--gray4);
+    border-bottom: 5px solid var(--nicepink);
 }
 
 .job-cats {
@@ -112,16 +101,22 @@ body {
 .add-job {
     background: transparent;
     border: 0;
-    border-bottom: 2px solid var(--gray4);
+    border-bottom: 4px solid var(--nicepink);
     color: inherit;
     transition: border-bottom 150ms ease-in;
+    margin-right: 5px;
+    margin-bottom: 20px;
 }
 
 .add-job:focus {
-    border-bottom-width: 4px;
+    border-bottom-width: 6px;
 }
 
+.job {
+    margin-bottom: 20px;
+}
 
+/* task container */
 
 .list-container {
     grid-column-start: 3;
@@ -131,15 +126,15 @@ body {
 }
 
 .tasks-container {
+    width: 100%;
     display: inline-flex;
     flex-direction: column;
-    
+    align-items: stretch;
 }
 
 .task-list {
     max-height: 300px;
     overflow-y: auto;
-    
 }
 
 .task {
@@ -153,11 +148,8 @@ body {
     transition: border-bottom 250ms ease-in-out;
 }
 
-
-
 .task:hover {
     border-bottom-width: 2px;
-   
 }
 
 [type="checkbox"]:checked + label  {
@@ -183,7 +175,6 @@ body {
     font-size: 1.1rem;
     color: var(--lightgreen);
     padding-bottom: 15px;
-    
 }
 
 form {
@@ -198,7 +189,7 @@ form {
 }
 
 .new-task-form {
-    height: 40px;
+    height: 65px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -212,17 +203,42 @@ form {
 
 .task-string > input {
     min-width: 400px;
+    margin-right: 20px;
 }
 
+
 .date-input {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 25px 25px;
+}
+
+.date-dropdown label {
+    font-size: 1.2rem;
+}
+
+ select {
+    border: 0;
+    background-color: var(--bkggreen);
+    font-size: 1.2rem;
+}
+
+ option {
+    background-color: var(--bkggreen);
+    font-size: 1rem;
 }
 
 .date-picker {
     display: none;
     padding-top: 10px;
+    text-align: right;
+    
+}
+
+.date-picker input {
+    font-size: 1rem;
+    background-color: var(--bkggreen);
+
 }
 
 
@@ -233,6 +249,7 @@ form {
     justify-content: center;
     align-items: center;
     margin-left: 20px;
+    margin-right: 20px;
 }
 
 
@@ -294,7 +311,22 @@ form {
     font-size: 1rem;
 }
 
+@media all and ( max-width: 1200px)  {
+  
+    .date-input {
+        grid-template-rows: 50px 30px;
+    }
 
+    .date-dropdown select {
+        margin-top: 5px;
+    }
+
+    .date-picker {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+
+}
 
 @media all and ( max-width: 980px)  {
     .container {
@@ -339,5 +371,9 @@ form {
     .new-job-form {
         flex-grow: 1;
         
+    }
+
+    .new-job-form input {
+        width: 75px;
     }
 }

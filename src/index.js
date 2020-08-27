@@ -12,12 +12,11 @@ const newTaskForm = document.querySelector('[data-new-task-form]');
 const taskTimeFrame = document.querySelector('[data-task-time-choice]')
 const dateDropdown = document.querySelector('.date-dropdown');
 const datePicker = document.querySelector('.date-picker');
-const dateInput = document.querySelector('#due-date')
+const dateInput = document.querySelector('#due-date');
 const taskStringInput = document.querySelector('.task-create');
 const deleteJobButton = document.querySelector('.delete-job');
-
-const currentJobTitle = document.querySelector('#current-job')
-const tasksContainer = document.querySelector('.task-list')
+const currentJobTitle = document.querySelector('#current-job');
+const tasksContainer = document.querySelector('.task-list');
 
 
 
@@ -30,8 +29,6 @@ taskTimeFrame.addEventListener('change', showDatePicker);
 
 const jobCreator = (title, id) => {
     const taskList = [];
-    // this will be an array of objects, each task will be 
-    // an object with string and due date
     return { title, id, taskList };
 };
 
@@ -60,32 +57,32 @@ function seedTasks() {
     const seedTasks = [
         {
             id: "11111111", 
-            taskString: "Welcome to JamesRedux To Do App",
-            dueDate: null,
+            taskString: "Welcome to JamesRedux Task Blaster App",
+            dueDate: "Whenever",
             complete: false
         },
         {
             id: "22222222", 
             taskString: "First Create a new Job on the left.",
-            dueDate: null,
+            dueDate: "ASAP",
             complete: false
         },
         {
             id: "33333333", 
-            taskString: "Then add tasks to it in this task section",
-            dueDate: null,
+            taskString: "Then you can add tasks to it in this task section",
+            dueDate: "This Year",
             complete: false
         },
         {
             id: "44444444", 
             taskString: "Mark them as done and delete if desired",
-            dueDate: null,
+            dueDate: "In The Future",
             complete: true
         },
         {
             id: "55555555", 
-            taskString: "You can also filter by tasks due today or this week!",
-            dueDate: null,
+            taskString: "In the Job List on the left, you can also filter by tasks that are due today or this week!",
+            dueDate: "2022-11-01",
             complete: false
         }
 
@@ -110,11 +107,10 @@ function addNewJob(e) {
     this.reset()
 };
 
-function showDatePicker(e) {
-    e.preventDefault;
+function showDatePicker() {
+    // e.preventDefault;
     if (taskTimeFrame.value === "setdate") {
-        datePicker.style.display = "inline"
-       
+        datePicker.style.display = "inline"   
     } else {
         datePicker.style.display = "none"
     };
@@ -132,9 +128,9 @@ function addNewTask(e) {
     } 
     const newTask = taskCreator(taskId, taskString, dueDate);
     currentJob.taskList.push(newTask);
-    
-    saveAndRender();
+    console.log(this)
     this.reset();
+    saveAndRender();
     
 }
 
@@ -166,7 +162,6 @@ function toggleTaskDone(e) {
 };
 
 function removeTask() {
-    const taskId = this.dataset.taskid
     const thisJobId = findJobFromTask(this.dataset.taskid).toString();
     const currentJob = jobList.find(job => job.id === thisJobId);
 
@@ -208,17 +203,13 @@ function render() {
     renderJobList()
     if(activeJobId === null) {
         const currentJob = jobList[0];
-        activeJobId = currentJob.id
-        // currentJobTitle.innerHTML = currentJob.title;
-        // renderTaskList(currentJob);
-    } else {
-        //    currentJobTitle.innerHTML = currentJob.title;
-        //    renderTaskList(currentJob);
+        activeJobId = currentJob.id;
     };
     
     const  currentJob = jobList.find(job => job.id === activeJobId);
     currentJobTitle.innerHTML = currentJob.title;
     renderTaskList(currentJob);
+    showDatePicker();
 
 
 };
@@ -259,13 +250,7 @@ function createTaskList(tasks) {
     tasks.forEach(task => {
         const newTask = document.createElement('div');
         newTask.classList.add("task");
-        // newTask.innerHTML = `
-    
-        // <input type="checkbox" name="" id="${task.id}">
-        // <label for="${task.id}">${task.taskString}</label>
-        // <p>${task.dueDate}</p>
-        // <button class=" btn delete-task" aria-label="delete new task" data-taskid="${task.id}"><i class="fas fa-trash-alt"></i></button
-        // `
+   
         const newCheckbox = document.createElement('input');
         const newLabel = document.createElement('label');
         const newDueDate = document.createElement('p');
