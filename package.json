@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Jamesredux/js-todo#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "css-loader": "^4.2.1",
     "style-loader": "^1.2.1",
     "webpack": "^4.44.1",
@@ -31,3 +32,4 @@
     "date-fns": "^2.15.0"
   }
 }
+

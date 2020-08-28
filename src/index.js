@@ -298,7 +298,7 @@ function loadCurrentJobs(jobtitle) {
                     }
             };
             
-        });
+        })
     });
     createTaskList(filteredTasks)
 };
